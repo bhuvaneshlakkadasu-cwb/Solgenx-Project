@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solar Monitoring Dashboard</title>      
+</head>
+
+<body>
+    <link rel ="stylesheet"  href="./SOLGENX.css"/>
+
+<h1 id="header">Solar Tracking And Monitoring Dashboard</h1><br><br><br><br>
+
+<center><div class="dashboard">
+    
+    <div class="card">
+        <div class="title">TimeStamp</div>
+        <div class="value" id="time"></div>
+    </div>
+
+    <div class="card">
+        <div class="title">Azimuth</div>
+        <div class="value" id="azimuth"></div>
+    </div>
+
+    <div class="card">
+        <div class="title">Elevation</div>
+        <div class="value" id="elevation"></div>
+    </div>
+
+    <div class="card">
+        <div class="title">Current</div>
+        <div class="value" id="current"></div>
+    </div>
+
+    <div class="card">
+        <div class="title">Power</div>
+        <div class="value" id="power"></div>
+    </div>
+
+   <div class="card">
+        <div class="title">Battery Voltage</div>
+        <div class="value" id="battery"></div>
+    </div>
+
+    <div class="card">
+        <div class="title">Temperature</div>
+        <div class="value" id="temp"></div>
+    </div>
+
+    <div class="card">
+        <div class="title">Humidity</div>
+        <div class="value" id="humidity"></div>
+    </div>
+
+    <div class="card mode">
+        <div class="title">Power Mode</div>
+        <div class="value" id="mode"></div>
+    </div>
+    
+
+</div>
+</center>
+
+<script>
+    // Sample CSV coming from Arduino / ESP / File
+    let csvData = ["1650","45","23","0.85","4.2","32","65","3.8","1"]
+    // let [Timestamp,Azimuth,Elevation,Current,Power,BatteryVoltage,Temperature,Humidity] = csvData
+    let values = ["1650","45","23","0.85","4.2","32","65","3.8","1"];
+
+    // Splitting CSV into Values
+
+    // The string is split at commas → converted into an array.
+
+    // Displaying Data on Dashboard
+
+    document.getElementById("time").innerText = values[0] + " s";
+    document.getElementById("azimuth").innerText = values[1] + "°";
+    document.getElementById("elevation").innerText = values[2] + "°";
+    document.getElementById("current").innerText = values[3] + " A";
+    document.getElementById("power").innerText = values[4] + " W";
+    document.getElementById("temp").innerText = values[5] + " °C";
+    document.getElementById("humidity").innerText = values[6] + " %";
+    document.getElementById("battery").innerText = values[7] + " V";
+
+    // Power Mode Logic
+    let modeText = "";
+    if (values[8] == "0") modeText = "Grid Power";
+    else if (values[8] == "1") modeText = "Solar Power";
+    else if (values[8] == "2") modeText = "Battery Power";
+
+    // Here you are converting numeric code → readable text.
+//     | Value | Meaning       |
+//     | ----- | ------------- |
+//     | 0     | Grid Power    |
+//     | 1     | Solar Power   |
+//     | 2     | Battery Power |
+// Sensor Data (array)
+//         ↓
+// values[0], values[1]...
+//         ↓
+// JavaScript reads values
+//         ↓
+// Updates HTML using innerText
+//         ↓
+// Dashboard displays data
+
+
+    document.getElementById("mode").innerText = modeText;
+</script>
+
+</body>
+</html>
+
+
+<!-- 
+    Arduino → sends CSV data
+        ↓
+    JavaScript reads data
+        ↓
+    Dashboard updates live 
+    
+    -->
